@@ -9,25 +9,25 @@ import java.util.Scanner;
 
 public class FibComparison {
 	
-	public static HashMap<Integer, Integer> cache;
-	public static ArrayList<Integer> list;
+	public static HashMap<Integer, Long> cache;
+	public static ArrayList<Long> list;
 	
 	public static void main(String[] args) {
 		/*Change this value if needed*/
 		int ind = 41;
 		
-		int result;
+		long result;
 		long start, finish, totTime;
 		/*limit of index*/
 		int limit = 43;
 		
 		/*Initialize cache and list with 0 and 1*/
-		cache = new HashMap<Integer, Integer>();
-		cache.put(0, 0);
-		cache.put(1, 1);
-		list = new ArrayList<Integer>();
-		list.add(0);
-		list.add(1);
+		cache = new HashMap<Integer, Long>();
+		cache.put(0, (long) 0);
+		cache.put(1, (long) 1);
+		list = new ArrayList<Long>();
+		list.add((long) 0);
+		list.add((long) 1);
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Which number in the Fib sequence would you like? ");
@@ -37,6 +37,17 @@ public class FibComparison {
 			System.out.print("Enter a positive index less than " + limit + ": ");
 			index = sc.nextInt();
 		}
+		
+		/*long cRes, nRes, iRes;
+		for(int i = 0; i < index; i++) {
+			cRes = fibCache(i);
+			nRes = fibNaive(i);
+			iRes = fibIterative(i);
+			
+			if(cRes != nRes || cRes != iRes) {
+				System.out.println("Error on fib with index " + index + "\n");
+			}
+		}*/
 		
 		sc.close();
 		
@@ -59,9 +70,9 @@ public class FibComparison {
 		System.out.print("Naive: Result: " + result + ", time to run: " + totTime + "ns\n");
 		
 		/*Reset cache for hybrid test*/
-		cache = new HashMap<Integer, Integer>();
-		cache.put(0, 0);
-		cache.put(1, 1);
+		cache = new HashMap<Integer, Long>();
+		cache.put(0, (long) 0);
+		cache.put(1, (long) 1);
 		
 		start = System.nanoTime();
 		result = fibHybrid(index);
@@ -84,7 +95,7 @@ public class FibComparison {
 	}
 	
 	/*Assumes n is positive */
-	public static int fibNaive(int n) {
+	public static long fibNaive(int n) {
 		
 		if (n == 0 || n == 1) {
 			return n;
@@ -94,19 +105,19 @@ public class FibComparison {
 	}
 	
 	/*Assumes n is positive */
-	public static int fibCache(int n) {
+	public static long fibCache(int n) {
 		
 		if (cache.get(n) != null) {
 			return cache.get(n);
 		}
 		
-		int fibRes = fibCache(n-1) + fibCache(n-2);
+		long fibRes = fibCache(n-1) + fibCache(n-2);
 		cache.put(n, fibRes);
 		return fibRes;
 	}
 	
 	/*Assumes n is positive */
-	public static int fibHybrid(int n) {
+	public static long fibHybrid(int n) {
 		if(n <= 13) {
 			return fibNaive(n);
 		}
@@ -114,7 +125,7 @@ public class FibComparison {
 	}
 	
 	/*Assumes n is positive*/
-	public static int fibIterative(int n) {
+	public static long fibIterative(int n) {
 		
 		if(n >= list.size()) {
 			for(int i = list.size(); i <= n; i++) {
