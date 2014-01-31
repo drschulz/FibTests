@@ -14,6 +14,7 @@ public class FibComparison {
 		
 		int result;
 		long start, finish, totTime;
+		/*limit of index*/
 		int limit = 43;
 		
 		/*Initialize cache and list with 0 and 1*/
